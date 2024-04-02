@@ -9,11 +9,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class StaffDto {
-    private String name;
-    private String username;
+public class UserDto {
+    private String firstName;
+    private String lastName;
+    private String email;
     private String password;
     private String confirmPassword;
-    private String authority;
 
 }

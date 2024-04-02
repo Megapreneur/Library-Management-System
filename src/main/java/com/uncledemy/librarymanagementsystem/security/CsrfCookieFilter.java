@@ -1,4 +1,4 @@
-package com.uncledemy.salesmanagementsystem.security;
+package com.uncledemy.librarymanagementsystem.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

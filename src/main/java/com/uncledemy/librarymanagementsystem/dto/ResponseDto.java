@@ -1,4 +1,4 @@
-package com.uncledemy.salesmanagementsystem.dto;
+package com.uncledemy.librarymanagementsystem.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

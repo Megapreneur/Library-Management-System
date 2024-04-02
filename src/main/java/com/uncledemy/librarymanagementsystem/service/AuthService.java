@@ -1,10 +1,11 @@
 package com.uncledemy.librarymanagementsystem.service;
 
-import com.uncledemy.salesmanagementsystem.dto.AuthenticationResponse;
-import com.uncledemy.salesmanagementsystem.dto.LoginDto;
-import com.uncledemy.salesmanagementsystem.exception.SalesManagementException;
-import com.uncledemy.salesmanagementsystem.exception.UserNotFoundException;
+
+import com.uncledemy.librarymanagementsystem.dto.AuthenticationResponse;
+import com.uncledemy.librarymanagementsystem.dto.LoginDto;
+import com.uncledemy.librarymanagementsystem.exception.InvalidPasswordException;
+import com.uncledemy.librarymanagementsystem.exception.UserNotFoundException;
 
 public interface AuthService {
-    AuthenticationResponse login(LoginDto loginDto) throws SalesManagementException, UserNotFoundException;
+    AuthenticationResponse login(LoginDto loginDto) throws SalesManagementException, UserNotFoundException, InvalidPasswordException;
 }

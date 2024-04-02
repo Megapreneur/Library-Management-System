@@ -1,7 +1,7 @@
 package com.uncledemy.librarymanagementsystem.exception;
 
 
-import com.uncledemy.salesmanagementsystem.util.APIError;
+import com.uncledemy.librarymanagementsystem.util.APIError;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -54,8 +54,16 @@ public class GlobalExceptionHandler {
                 .message(e.getLocalizedMessage())
                 .build());
     }
-    @ExceptionHandler(SalesManagementException.class)
-    public ResponseEntity<APIError> handleException(SalesManagementException e){
+    @ExceptionHandler(InvalidEmailException.class)
+    public ResponseEntity<APIError> handleException(InvalidEmailException e){
+        e.printStackTrace();
+        return ResponseEntity.badRequest().body(APIError.builder()
+                .status(HttpStatus.BAD_REQUEST)
+                .message(e.getLocalizedMessage())
+                .build());
+    }
+    @ExceptionHandler(LibraryManagementException.class)
+    public ResponseEntity<APIError> handleException(LibraryManagementException e){
         e.printStackTrace();
         return ResponseEntity.badRequest().body(APIError.builder()
                 .status(HttpStatus.BAD_REQUEST)

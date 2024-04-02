@@ -1,6 +1,5 @@
-package com.uncledemy.salesmanagementsystem.dto;
+package com.uncledemy.librarymanagementsystem.dto;
 
-import com.uncledemy.salesmanagementsystem.model.Authority;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,11 +9,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ClientDto {
+public class PatronDto {
     private String firstName;
     private String lastName;
     private String phoneNumber;
     private String email;
     private String address;
-    private String authority;
 }

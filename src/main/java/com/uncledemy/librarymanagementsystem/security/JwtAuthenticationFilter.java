@@ -1,6 +1,7 @@
 package com.uncledemy.librarymanagementsystem.security;
 
-import com.uncledemy.salesmanagementsystem.util.APIError;
+
+import com.uncledemy.librarymanagementsystem.util.APIError;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

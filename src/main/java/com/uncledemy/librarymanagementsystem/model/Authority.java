@@ -1,5 +1,5 @@
-package com.uncledemy.salesmanagementsystem.model;
+package com.uncledemy.librarymanagementsystem.model;
 
 public enum Authority {
-    ADMIN, SELLER, CLIENT
+    ADMIN
 }

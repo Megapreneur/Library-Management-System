@@ -1,8 +1,7 @@
-package com.uncledemy.salesmanagementsystem.security.config;
+package com.uncledemy.librarymanagementsystem.security.config;
 
-import com.uncledemy.salesmanagementsystem.model.User;
+import com.uncledemy.librarymanagementsystem.model.User;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -35,7 +34,7 @@ public class SecureUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return user.getEmail();
     }
 
     @Override

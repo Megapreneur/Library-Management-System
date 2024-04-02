@@ -1,4 +1,4 @@
-package com.uncledemy.salesmanagementsystem.security;
+package com.uncledemy.librarymanagementsystem.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

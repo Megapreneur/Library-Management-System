@@ -1,4 +1,4 @@
-package com.uncledemy.salesmanagementsystem.security.config;
+package com.uncledemy.librarymanagementsystem.security.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

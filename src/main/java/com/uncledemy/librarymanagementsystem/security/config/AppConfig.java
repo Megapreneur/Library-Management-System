@@ -1,13 +1,11 @@
-package com.uncledemy.salesmanagementsystem.security.config;
+package com.uncledemy.librarymanagementsystem.security.config;
 
-import com.uncledemy.salesmanagementsystem.auditing.ApplicationAudit;
-import com.uncledemy.salesmanagementsystem.exception.InvalidUsernameException;
-import com.uncledemy.salesmanagementsystem.model.User;
-import com.uncledemy.salesmanagementsystem.service.UserService;
+
+import com.uncledemy.librarymanagementsystem.model.User;
+import com.uncledemy.librarymanagementsystem.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -40,10 +38,7 @@ public class AppConfig {
         return authProvider;
     }
 
-    @Bean
-    public AuditorAware<Long> auditorAware(){
-        return new ApplicationAudit();
-    }
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
