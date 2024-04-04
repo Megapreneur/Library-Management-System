@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -15,8 +16,10 @@ public class BookServiceImpl implements BookService{
     private final BookRepository bookRepository;
     @Override
     public boolean addNewBook(BookDto bookDto) throws LibraryManagementException {
-        Book savedBook = bookRepository.findByIsbn(bookDto.getIsbn()).orElseThrow(()->
-                new LibraryManagementException("A Book with isbn: "+bookDto.getIsbn()+" already exist. "));
+        Optional<Book> savedBook = bookRepository.findByIsbn(bookDto.getIsbn());
+        if (savedBook.isPresent()){
+            throw new LibraryManagementException("A Book with isbn: "+bookDto.getIsbn()+" already exist. ");
+        }
         Book newBook = Book.builder()
                 .title(bookDto.getTitle())
                 .author(bookDto.getAuthor())

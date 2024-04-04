@@ -7,5 +7,5 @@ import com.uncledemy.librarymanagementsystem.exception.InvalidPasswordException;
 import com.uncledemy.librarymanagementsystem.exception.UserNotFoundException;
 
 public interface AuthService {
-    AuthenticationResponse login(LoginDto loginDto) throws SalesManagementException, UserNotFoundException, InvalidPasswordException;
+    AuthenticationResponse login(LoginDto loginDto) throws  UserNotFoundException, InvalidPasswordException;
 }

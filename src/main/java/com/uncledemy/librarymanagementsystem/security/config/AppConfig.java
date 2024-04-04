@@ -1,6 +1,7 @@
 package com.uncledemy.librarymanagementsystem.security.config;
 
 
+import com.uncledemy.librarymanagementsystem.exception.InvalidUsernameException;
 import com.uncledemy.librarymanagementsystem.model.User;
 import com.uncledemy.librarymanagementsystem.service.UserService;
 import lombok.RequiredArgsConstructor;

@@ -33,24 +33,20 @@ public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authProvider;
     private final String[] NO_AUTH_ROUTES = {
-            "/api/v1/user/create","/api/v1/auth/login"
+            "/api/register","/api/login"
     };
     private final String[] CSRF_ROUTES = {
-            "/api/v1/user/create","/api/v1/auth/login","/api/v1/product/create",
-            "/api/v1/product/update","/api/v1/client/create","/api/v1/client/update",
-            "/api/v1/sales/create","/api/v1/sales/update"
+            "/api/register","/api/login","/api/patrons/",
+            "/api/patrons/{patronId}","/api/books/","/api/books/{bookId}",
+            "/api/borrow/{bookId}/patron/{patronId}","/api/return/{bookId}/patron/{patronId}"
 
     };
-    private final String[] AUTH_ROUTES = {
-            "/api/v1/product/create","/api/v1/product/product","/api/v1/product/update",
-            "/api/v1/product/allProducts","/api/v1/product/delete","/api/v1/client/create",
-            "/api/v1/client/client","/api/v1/client/update","/api/v1/client/allClients",
-            "/api/v1/client/delete","/api/v1/sales/create","/api/v1/sales/sales",
-            "/api/v1/sales/update","/api/v1/sales/allTransactions"
-    };
+
     private final String[] ADMIN_ROUTES = {
-            "/api/v1/sales/reports/sales","/api/v1/client/reports/client",
-            "/api/v1/product/reports/product"
+            "/api/register","/api/login","/api/patrons/","/api/patrons/","/api/patrons/{patronId}",
+            "/api/patrons/{patronId}","/api/books/","/api/books/{bookId}","/api/patrons/{patronId}",
+            "/api/borrow/{bookId}/patron/{patronId}","/api/return/{bookId}/patron/{patronId}",
+            "/api/books/","/api/books/{bookId}","/api/books/{bookId}"
     };
 
     @Bean
@@ -75,8 +71,8 @@ public class SecurityConfiguration {
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((requests)->requests
                         .requestMatchers(NO_AUTH_ROUTES).permitAll()
-                        .requestMatchers(AUTH_ROUTES).hasAnyAuthority("ADMIN","SELLER")
-                        .requestMatchers(ADMIN_ROUTES).hasAuthority("ADMIN"));
+                        .requestMatchers(ADMIN_ROUTES).hasAuthority("ADMIN")
+                        .anyRequest().authenticated());
         return  http.build();
 
     }

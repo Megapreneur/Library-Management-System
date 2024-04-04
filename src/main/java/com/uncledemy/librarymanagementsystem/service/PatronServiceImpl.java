@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -20,8 +21,8 @@ public class PatronServiceImpl implements PatronService{
     public boolean addNewPatron(PatronDto patronDto) throws UserAlreadyExistException, InvalidEmailException, InvalidPhoneNumberException {
         if (!isValidEmail(patronDto.getEmail())) throw new InvalidEmailException("The Email address provided is not valid");
         if (!isValidPhoneNumber(patronDto.getPhoneNumber())) throw new InvalidPhoneNumberException("The Phone number provided is not valid");
-        Patron savedPatron = patronRepository.findByEmail(patronDto.getEmail()).orElseThrow(()->
-                new UserAlreadyExistException("A Patron with email: "+patronDto.getEmail()+" already exist"));
+        Optional<Patron> savedPatron = patronRepository.findByEmail(patronDto.getEmail());
+        if (savedPatron.isPresent()) throw new UserAlreadyExistException("A Patron with email: "+patronDto.getEmail()+" already exist");
         Patron newPatron = Patron.builder()
                 .firstName(patronDto.getFirstName())
                 .lastName(patronDto.getLastName())

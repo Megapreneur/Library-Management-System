@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/create")
+    @PostMapping("/register")
 
     public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody UserDto userDto) throws UserAlreadyExistException, InvalidPasswordException, InvalidEmailException, PasswordMisMatchException {
         userService.registration(userDto);

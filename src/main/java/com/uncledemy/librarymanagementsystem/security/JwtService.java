@@ -19,7 +19,7 @@ import java.util.function.Function;
 public class JwtService {
 
 
-    @Value("${sales.app.SecretKey}")
+    @Value("${library.app.SecretKey}")
     private String SECRET_KEY;
 
     public String extractUsername(String token){

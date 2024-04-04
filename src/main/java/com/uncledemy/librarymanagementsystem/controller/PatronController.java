@@ -1,19 +1,20 @@
 package com.uncledemy.librarymanagementsystem.controller;
 
 import com.uncledemy.librarymanagementsystem.constants.StatusConstant;
-import com.uncledemy.librarymanagementsystem.dto.BookDto;
 import com.uncledemy.librarymanagementsystem.dto.PatronDto;
 import com.uncledemy.librarymanagementsystem.dto.ResponseDto;
 import com.uncledemy.librarymanagementsystem.exception.InvalidEmailException;
 import com.uncledemy.librarymanagementsystem.exception.InvalidPhoneNumberException;
-import com.uncledemy.librarymanagementsystem.exception.LibraryManagementException;
 import com.uncledemy.librarymanagementsystem.exception.UserAlreadyExistException;
-import com.uncledemy.librarymanagementsystem.model.Book;
 import com.uncledemy.librarymanagementsystem.model.Patron;
-import com.uncledemy.librarymanagementsystem.service.BookService;
 import com.uncledemy.librarymanagementsystem.service.PatronService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,16 +23,18 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/patrons")
+@CacheConfig(cacheNames = "patrons")
+@Slf4j
 public class PatronController {
     private final PatronService patronService;
-    @PostMapping("")
+    @PostMapping("/")
     public ResponseEntity<ResponseDto> addABook(@Valid @RequestBody PatronDto patronDto) throws UserAlreadyExistException, InvalidPhoneNumberException, InvalidEmailException {
         boolean isCreated = patronService.addNewPatron(patronDto);
         if (isCreated){
             return ResponseEntity
                     .status(HttpStatus.CREATED)
-                    .body(new ResponseDto(StatusConstant.STATUS_201, StatusConstant.MESSAGE_201));
+                    .body(new ResponseDto(StatusConstant.STATUS_201, StatusConstant.MESSAGE_201_PATRON));
         }else{
             return ResponseEntity
                     .status(HttpStatus.EXPECTATION_FAILED)
@@ -40,11 +43,15 @@ public class PatronController {
 
     }
     @GetMapping("/{patronId}")
+    @Cacheable(key = "#patronId")
     public ResponseEntity<Patron> findAPatron(@PathVariable("patronId") long patronId){
         Patron patron = patronService.getPatronById(patronId);
+        log.info("Getting patron with id {} from DB.",patronId);
+
         return ResponseEntity.status(HttpStatus.OK).body(patron);
     }
     @PutMapping("/{patronId}")
+    @CachePut(key = "#patronId")
     public ResponseEntity<ResponseDto> updateAPatron(@Valid @PathVariable("patronId") long patronId, @Valid @RequestBody PatronDto patronDto) throws InvalidPhoneNumberException, InvalidEmailException {
         boolean isUpdated = patronService.updateAPatron(patronId, patronDto);
         if (isUpdated){
@@ -58,12 +65,16 @@ public class PatronController {
         }
     }
     @GetMapping("/")
+    @Cacheable(key = "'allPatrons'")
     public ResponseEntity<List<Patron>> getAllPatrons(){
         List<Patron> patrons = patronService.getAllPatrons();
+        log.info("Getting all Patrons from DB");
+
         return ResponseEntity.status(HttpStatus.OK).body(patrons);
     }
 
     @DeleteMapping("/{patronId}")
+    @CacheEvict(key = "#patronId")
     public ResponseEntity<ResponseDto> deletePatron(@PathVariable("patronId") long patronId) {
         boolean isDeleted = patronService.deletePatronById(patronId);
         if (isDeleted){
