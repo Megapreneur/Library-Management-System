@@ -46,24 +46,21 @@ public class AuthServiceImplTest {
 
     @Test
     void login_WithValidCredentials_ShouldReturnAuthenticationResponse() throws UserNotFoundException, InvalidPasswordException {
-        // Arrange
         LoginDto loginDto = new LoginDto();
-        loginDto.setEmail("test@example.com");
+        loginDto.setEmail("tests@example.com");
         loginDto.setPassword("password");
 
         User user = new User();
-        user.setId(1L); // Set an id for the user
-        user.setEmail("test@example.com");
+        user.setId(1L);
+        user.setEmail("tests@example.com");
         user.setPassword("encodedPassword");
 
         when(userRepository.findUserByEmail(anyString())).thenReturn(Optional.of(user));
         when(authenticationManager.authenticate(any())).thenReturn(mock(Authentication.class));
         when(jwtService.generateToken(any(SecureUser.class))).thenReturn("jwtToken");
 
-        // Act
         AuthenticationResponse response = authService.login(loginDto);
 
-        // Assert
         assertNotNull(response);
         assertEquals("jwtToken", response.getAccessToken());
         assertEquals(1, response.getUserId());
@@ -73,32 +70,28 @@ public class AuthServiceImplTest {
 
     @Test
     void login_WithInvalidCredentials_ShouldThrowInvalidPasswordException() {
-        // Arrange
         LoginDto loginDto = new LoginDto();
-        loginDto.setEmail("test@example.com");
-        loginDto.setPassword("wrongPassword");
+        loginDto.setEmail("tests@example.com");
+        loginDto.setPassword("WrongPassword");
 
         User user = new User();
-        user.setEmail("test@example.com");
+        user.setEmail("tests@example.com");
         user.setPassword("encodedPassword");
 
         when(userRepository.findUserByEmail(anyString())).thenReturn(Optional.of(user));
         when(authenticationManager.authenticate(any())).thenThrow(new BadCredentialsException("Invalid credentials"));
 
-        // Act & Assert
         assertThrows(InvalidPasswordException.class, () -> authService.login(loginDto));
     }
 
     @Test
     void login_WithNonExistentUser_ShouldThrowUserNotFoundException() {
-        // Arrange
         LoginDto loginDto = new LoginDto();
-        loginDto.setEmail("nonExistentUser@example.com");
+        loginDto.setEmail("tests@example.com");
         loginDto.setPassword("password");
 
         when(userRepository.findUserByEmail(anyString())).thenReturn(Optional.empty());
 
-        // Act & Assert
         assertThrows(UserNotFoundException.class, () -> authService.login(loginDto));
     }
 

@@ -34,33 +34,27 @@ public class BookServiceImplTest {
 
     @Test
     void addNewBook_WithNonExistingISBN_ShouldAddNewBook() throws LibraryManagementException {
-        // Arrange
         BookDto bookDto = new BookDto("Title", "Author", "1234567890", "2022");
 
         when(bookRepository.findByIsbn(any())).thenReturn(Optional.empty());
         when(bookRepository.save(any())).thenReturn(new Book());
 
-        // Act
         boolean result = bookService.addNewBook(bookDto);
 
-        // Assert
         assertTrue(result);
     }
 
     @Test
     void addNewBook_WithExistingISBN_ShouldThrowLibraryManagementException() {
-        // Arrange
         BookDto bookDto = new BookDto("Title", "Author", "1234567890", "2022");
 
         when(bookRepository.findByIsbn(any())).thenReturn(Optional.of(new Book()));
 
-        // Act & Assert
         assertThrows(LibraryManagementException.class, () -> bookService.addNewBook(bookDto));
     }
 
     @Test
     void updateABook_WithValidBookId_ShouldUpdateBook() throws LibraryManagementException {
-        // Arrange
         long bookId = 1;
         BookDto bookDto = new BookDto("Title", "Author", "2022", "1234567890");
         Book savedBook = new Book();
@@ -68,87 +62,70 @@ public class BookServiceImplTest {
         when(bookRepository.findById(any())).thenReturn(Optional.of(savedBook));
         when(bookRepository.save(any())).thenReturn(savedBook);
 
-        // Act
         boolean result = bookService.updateABook(bookId, bookDto);
 
-        // Assert
         assertTrue(result);
     }
 
     @Test
     void updateABook_WithInvalidPublicationYear_ShouldThrowLibraryManagementException() {
-        // Arrange
         long bookId = 1;
         BookDto bookDto = new BookDto("Title", "Author", "1234567890", "22"); // Invalid year
 
-        // Act & Assert
         assertThrows(LibraryManagementException.class, () -> bookService.updateABook(bookId, bookDto));
     }
 
     @Test
     void getBookById_WithValidBookId_ShouldReturnBook() throws LibraryManagementException {
-        // Arrange
         long bookId = 1;
         Book expectedBook = new Book();
 
         when(bookRepository.findById(any())).thenReturn(Optional.of(expectedBook));
 
-        // Act
         Book actualBook = bookService.getBookById(bookId);
 
-        // Assert
         assertEquals(expectedBook, actualBook);
     }
 
     @Test
     void getBookById_WithInvalidBookId_ShouldThrowLibraryManagementException() {
-        // Arrange
         long bookId = 1;
 
         when(bookRepository.findById(any())).thenReturn(Optional.empty());
 
-        // Act & Assert
         assertThrows(LibraryManagementException.class, () -> bookService.getBookById(bookId));
     }
 
     @Test
     void getAllBooks_ShouldReturnListOfBooks() {
-        // Arrange
         List<Book> expectedBooks = new ArrayList<>();
         expectedBooks.add(new Book());
         expectedBooks.add(new Book());
 
         when(bookRepository.findAll()).thenReturn(expectedBooks);
 
-        // Act
         List<Book> actualBooks = bookService.getAllBooks();
 
-        // Assert
         assertEquals(expectedBooks, actualBooks);
     }
 
     @Test
     void deleteBookById_WithValidBookId_ShouldDeleteBook() throws LibraryManagementException {
-        // Arrange
         long bookId = 1;
 
         when(bookRepository.findById(any())).thenReturn(Optional.of(new Book()));
 
-        // Act
         boolean result = bookService.deleteBookById(bookId);
 
-        // Assert
         assertTrue(result);
     }
 
     @Test
     void deleteBookById_WithInvalidBookId_ShouldThrowLibraryManagementException() {
-        // Arrange
         long bookId = 1;
 
         when(bookRepository.findById(any())).thenReturn(Optional.empty());
 
-        // Act & Assert
         assertThrows(LibraryManagementException.class, () -> bookService.deleteBookById(bookId));
     }
 

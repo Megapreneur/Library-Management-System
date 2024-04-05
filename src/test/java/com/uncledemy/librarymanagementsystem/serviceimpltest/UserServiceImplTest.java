@@ -42,7 +42,7 @@ public class UserServiceImplTest {
         UserDto userDto = new UserDto();
         userDto.setFirstName("John");
         userDto.setLastName("Doe");
-        userDto.setEmail("john.doe@example.com");
+        userDto.setEmail("tests@example.com");
         userDto.setPassword("Test@123");
         userDto.setConfirmPassword("Test@123");
 
@@ -59,7 +59,7 @@ public class UserServiceImplTest {
         UserDto userDto = new UserDto();
         userDto.setFirstName("John");
         userDto.setLastName("Doe");
-        userDto.setEmail("existingUser@example.com");
+        userDto.setEmail("tests@example.com");
         userDto.setPassword("Test@123");
         userDto.setConfirmPassword("Test@123");
 
@@ -73,7 +73,7 @@ public class UserServiceImplTest {
         UserDto userDto = new UserDto();
         userDto.setFirstName("John");
         userDto.setLastName("Doe");
-        userDto.setEmail("john.doe@example.com");
+        userDto.setEmail("tests@example.com");
         userDto.setPassword("Password1@");
         userDto.setConfirmPassword("Password2@");
 
@@ -83,7 +83,7 @@ public class UserServiceImplTest {
     @Test
     void registration_WithInvalidPassword_ShouldThrowInvalidPasswordException() {
         UserDto userDto = new UserDto();
-        userDto.setPassword("invalidpassword");
+        userDto.setPassword("password");
 
         assertThrows(InvalidPasswordException.class, () -> userService.registration(userDto));
     }
@@ -93,7 +93,7 @@ public class UserServiceImplTest {
         UserDto userDto = new UserDto();
         userDto.setFirstName("John");
         userDto.setLastName("Doe");
-        userDto.setEmail("invalidEmail");
+        userDto.setEmail("test");
         userDto.setPassword("Password2@");
         userDto.setConfirmPassword("Password2@");
 
