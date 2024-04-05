@@ -8,6 +8,7 @@ import com.uncledemy.librarymanagementsystem.exception.InvalidPhoneNumberExcepti
 import com.uncledemy.librarymanagementsystem.exception.UserAlreadyExistException;
 import com.uncledemy.librarymanagementsystem.model.Patron;
 import com.uncledemy.librarymanagementsystem.service.PatronService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,10 @@ import java.util.List;
 @RequestMapping("/api/patrons")
 @CacheConfig(cacheNames = "patrons")
 @Slf4j
+@Tag(
+        name = "Patron Controller for All CRUD API",
+        description = "This class implements all the CRUD api operations for the Patron Management."
+)
 public class PatronController {
     private final PatronService patronService;
     @PostMapping("/")

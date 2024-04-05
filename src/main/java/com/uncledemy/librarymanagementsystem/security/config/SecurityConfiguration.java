@@ -33,7 +33,8 @@ public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authProvider;
     private final String[] NO_AUTH_ROUTES = {
-            "/api/register","/api/login"
+            "/api/register","/api/login","/v3/api-docs",
+            "/v3/api-docs/**", "/swagger-ui.html","/swagger-ui/**"
     };
     private final String[] CSRF_ROUTES = {
             "/api/register","/api/login","/api/patrons/",

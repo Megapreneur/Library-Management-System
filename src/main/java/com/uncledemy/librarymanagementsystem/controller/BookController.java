@@ -6,6 +6,7 @@ import com.uncledemy.librarymanagementsystem.dto.ResponseDto;
 import com.uncledemy.librarymanagementsystem.exception.LibraryManagementException;
 import com.uncledemy.librarymanagementsystem.model.Book;
 import com.uncledemy.librarymanagementsystem.service.BookService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,10 @@ import java.util.List;
 @RequestMapping("/api/books")
 @CacheConfig(cacheNames = "books")
 @Slf4j
+@Tag(
+        name = "Book Controller for All CRUD API",
+        description = "This class implements all the CRUD api operations for the Book Management."
+)
 public class BookController {
 
     private final BookService bookService;

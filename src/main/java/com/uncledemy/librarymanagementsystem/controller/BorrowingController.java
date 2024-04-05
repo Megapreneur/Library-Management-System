@@ -1,6 +1,7 @@
 package com.uncledemy.librarymanagementsystem.controller;
 
 import com.uncledemy.librarymanagementsystem.service.BorrowingService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
+@Tag(
+        name = "Borrowing Controller",
+        description = "This class implements the borrowing and returning of books by the patron."
+)
 public class BorrowingController {
 
 

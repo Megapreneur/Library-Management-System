@@ -8,6 +8,7 @@ import com.uncledemy.librarymanagementsystem.exception.InvalidPasswordException;
 import com.uncledemy.librarymanagementsystem.exception.PasswordMisMatchException;
 import com.uncledemy.librarymanagementsystem.exception.UserAlreadyExistException;
 import com.uncledemy.librarymanagementsystem.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
+@Tag(
+        name = "User Controller for registration",
+        description = "This class implements user's registration on the application, in order to be able to utilize the patron and book management."
+)
 public class UserController {
     private final UserService userService;
 
