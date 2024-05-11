@@ -105,7 +105,7 @@ The Sales Management System offers the following API endpoints:
 - Remove a book from the library: `DELETE /api/books/{id}`
 - Add a new patron to the system: `POST /api/patrons`
 - Retrieve details of a specific patron by ID: `GET /api/patrons/{id}`
-- Update [templates](src%2Fmain%2Fresources%2Ftemplates)an existing patron's information: `PUT /api/patrons/{id}`
+- Update an existing patron's information: `PUT /api/patrons/{id}`
 - Retrieve a list of all patrons: `GET /api/patrons`
 - Remove a patron from the system: `DELETE /api/patrons/{id}`
 - Allow a patron to borrow a book: `POST /api/borrow/{bookId}/patron/{patronId}`
